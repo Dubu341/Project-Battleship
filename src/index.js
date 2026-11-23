@@ -5,7 +5,7 @@ import { buildGrid } from "./DOM.js";
 import { gridSize } from "./gameboard.js";
 const playerGrid = document.querySelector(".playerBoard");
 const computerGrid = document.querySelector(".computerBoard");
-
+const resetBoard = document.querySelector(".reset");
 const player = new Player("player");
 const computer = new Player("computer");
 
@@ -14,6 +14,13 @@ const computerBoard = computer.board;
 
 playerBoard.randomBoard();
 computerBoard.randomBoard();
+
+resetBoard.addEventListener("click", () => {
+  playerBoard.randomBoard();
+  computerBoard.randomBoard();
+  buildGrid(playerGrid, playerBoard, true);
+  buildGrid(computerGrid, computerBoard, true);
+});
 
 buildGrid(playerGrid, playerBoard, true);
 buildGrid(computerGrid, computerBoard, true);
