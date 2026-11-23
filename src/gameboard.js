@@ -1,5 +1,4 @@
 import Ship from "./ship.js";
-
 const gridSize = 10;
 
 function guardRails(position) {
@@ -49,7 +48,6 @@ class Gameboard {
   }
 
   receiveAttack(coordinates) {
-    //reminder to block repeated attacks on the same square
     if (
       coordinates === undefined ||
       this.shotHit.has(coordinates) ||
@@ -63,6 +61,7 @@ class Gameboard {
       ship.hit();
       ship.isSunk();
       this.shotHit.add(coordinates);
+      return true;
     } else {
       this.missedShots.add(coordinates);
     }
@@ -108,4 +107,4 @@ class Gameboard {
   }
 }
 
-export { Gameboard, gridSize };
+export { Gameboard, gridSize, guardRails };
