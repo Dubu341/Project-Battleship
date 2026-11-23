@@ -2,7 +2,7 @@ import Player from "./player.js";
 import {} from "./DOM.js";
 import {} from "./styles.css";
 import { buildGrid } from "./DOM.js";
-
+import { gridSize } from "./gameboard.js";
 const playerGrid = document.querySelector(".playerBoard");
 const computerGrid = document.querySelector(".computerBoard");
 
@@ -36,4 +36,21 @@ computerGrid.addEventListener("click", (event) => {
   const coords = square.dataset.coords;
   computerBoard.receiveAttack(coords);
   buildGrid(computerGrid, computerBoard, true);
+  computerAttack(); //!!!!
 });
+
+function computerAttack() {
+  let coords;
+  let key;
+
+  do {
+    coords = [
+      Math.floor(Math.random() * gridSize),
+      Math.floor(Math.random() * gridSize),
+    ];
+    key = playerBoard.coordsHelper(coords);
+  } while (playerBoard.shotHit.has(key) || playerBoard.missedShots.has(key));
+
+  playerBoard.receiveAttack(key);
+  buildGrid(playerGrid, playerBoard, true);
+}
