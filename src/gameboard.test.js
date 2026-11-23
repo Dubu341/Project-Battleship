@@ -1,4 +1,4 @@
-import Gameboard from "./gameboard.js";
+import {Gameboard} from "./gameboard.js";
 
 const playerBoard = new Gameboard();
 
@@ -11,27 +11,27 @@ playerBoard.deployShip([2, 4], 2);
 // })
 
 test("player first ship hit", () => {
-  expect(playerBoard.recieveAttack([1, 2])).toBe(true);
+  expect(playerBoard.receiveAttack([1, 2])).toBe(true);
 });
 test("duplicate square", () => {
-  expect(playerBoard.deployShip([1, 1],2)).toBe(false);
+  expect(playerBoard.deployShip([1, 1], 2)).toBe(false);
 });
 test("player first ship hit", () => {
-  expect(playerBoard.recieveAttack([1, 3])).toBe(true);
+  expect(playerBoard.receiveAttack([1, 3])).toBe(true);
 });
 test("player first ship hit", () => {
-  expect(playerBoard.recieveAttack([1, 4])).toBe(true);
+  expect(playerBoard.receiveAttack([1, 4])).toBe(true);
 });
 test("player second ship hit", () => {
-  expect(playerBoard.recieveAttack([2, 4])).toBe(true);
+  expect(playerBoard.receiveAttack([2, 4])).toBe(true);
 });
 
 test("player second ship hit", () => {
-  expect(playerBoard.recieveAttack([2, 5])).toBe(true);
+  expect(playerBoard.receiveAttack([2, 5])).toBe(true);
 });
 
 test("attack miss", () => {
-  expect(playerBoard.recieveAttack([4, "k"])).toBe(false);
+  expect(playerBoard.receiveAttack([4, "k"])).toBe(false);
 });
 
 test("all ships sunk", () => {
