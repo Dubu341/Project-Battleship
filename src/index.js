@@ -21,6 +21,7 @@ playerBoard.randomBoard();
 computerBoard.randomBoard();
 
 randomBoard.addEventListener("click", () => {
+  computerGrid.classList.remove("game-over");
   playerBoard.randomBoard();
   computerBoard.randomBoard();
   clearTargets();
@@ -30,6 +31,7 @@ randomBoard.addEventListener("click", () => {
 });
 
 resetBoard.addEventListener("click", () => {
+  computerGrid.classList.remove("game-over");
   playerBoard.reset();
   computerBoard.randomBoard();
   clearTargets();
@@ -60,6 +62,8 @@ function winCondition(player, playerBoard) {
     winText.textContent = `${player.player} Won!`;
     winText.classList.add("win");
     boards.appendChild(winText);
+    buildGrid(computerGrid, computerBoard, true);
+    computerGrid.classList.add("game-over");
   }
 }
 
