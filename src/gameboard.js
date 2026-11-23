@@ -76,18 +76,35 @@ class Gameboard {
     return true;
   }
 
+  reset() {
+    this.coords = new Map();
+    this.missedShots = new Set();
+    this.shotHit = new Set();
+  }
   randomBoard() {
     const shipSizes = [4, 4, 3, 3, 2, 2, 1, 1];
-    shipSizes.forEach((size) => {
-      let placed = false;
-      while (!placed) {
-        const coordinates = [
-          Math.floor(Math.random() * gridSize),
-          Math.floor(Math.random() * gridSize),
-        ];
-        placed = this.deployShip(coordinates, size);
+    const maxAttempts = 1000;
+    let allPlaced = false;
+    while (!allPlaced) {
+      this.reset();
+      allPlaced = true;
+      for (const size of shipSizes) {
+        let placed = false;
+        let attempts = 0;
+        while (!placed && attempts < maxAttempts) {
+          const coordinates = [
+            Math.floor(Math.random() * gridSize),
+            Math.floor(Math.random() * gridSize),
+          ];
+          placed = this.deployShip(coordinates, size);
+          attempts++;
+        }
+        if (!placed) {
+          allPlaced = false;
+          break;
+        }
       }
-    });
+    }
   }
 }
 
