@@ -1,7 +1,6 @@
 import { gridSize } from "./gameboard.js";
-import Player from "./player.js";
 
-function buildGrid(container, board) {
+function buildGrid(container, board, revealShips) {
   for (let i = 0; i < gridSize; i++) {
     //row
     for (let j = 0; j < gridSize; j++) {
@@ -10,7 +9,7 @@ function buildGrid(container, board) {
       square.classList.add("square");
       square.dataset.coords = `${i},${j}`;
 
-      if (board.coords.has(square.dataset.coords)) {
+      if (board.coords.has(square.dataset.coords) && revealShips) {
         square.classList.add("ship");
       }
 
