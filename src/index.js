@@ -24,7 +24,9 @@ computerGrid.addEventListener("click", (event) => {
 
   if (computerBoard.receiveAttack(coords) === false) return;
   buildGrid(computerGrid, computerBoard, true);
+  winCondition(player, computerBoard);
   computerAttack(); //!!!!
+  winCondition(computer, playerBoard);
 });
 
 function computerAttack() {
@@ -41,4 +43,10 @@ function computerAttack() {
 
   playerBoard.receiveAttack(key);
   buildGrid(playerGrid, playerBoard, true);
+}
+
+function winCondition(player, playerBoard) {
+  if (playerBoard.hasAllShipsSunk()) {
+    console.log(`${player.player} won`);
+  }
 }
