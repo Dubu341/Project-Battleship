@@ -50,15 +50,21 @@ class Gameboard {
 
   receiveAttack(coordinates) {
     //reminder to block repeated attacks on the same square
+    if (
+      coordinates === undefined ||
+      this.shotHit.has(coordinates) ||
+      this.missedShots.has(coordinates) ||
+      this.hasAllShipsSunk()
+    )
+      return false;
+
     const ship = this.coords.get(coordinates);
     if (ship) {
       ship.hit();
       ship.isSunk();
       this.shotHit.add(coordinates);
-      return true;
     } else {
       this.missedShots.add(coordinates);
-      return false;
     }
   }
 
