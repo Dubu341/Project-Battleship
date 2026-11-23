@@ -1,28 +1,44 @@
 * {
   box-sizing: border-box;
 }
-
+body {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "GRAD" 0;
+}
 .boards {
   display: grid;
-  grid-template-columns: 250px 250px;
-  gap: 200px;
+  grid-template-columns: 300px 300px;
+  column-gap: 200px;
+  place-self: center;
+  text-align: center;
+  position: relative;
 }
 .playerBoard,
 .computerBoard {
   display: grid;
-  grid-template-columns: repeat(10, 25px);
+  grid-template-columns: repeat(10, 30px);
+  margin-bottom: 10px;
 }
 .square {
-  height: 25px;
+  height: 30px;
   border: 1px solid rgb(148, 139, 196);
 }
 
 .ship {
-  background-color: blue;
+  background-color: rgb(156, 156, 255);
 }
 .hit {
-  background-color: red;
+  background-color: rgb(240, 67, 67);
 }
 .miss {
   background-color: grey;
+}
+.win {
+  position: absolute;
+  top: 100px;
+  right: 350px;
+  font-size: 1.2rem;
 }

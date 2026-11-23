@@ -8,8 +8,8 @@ const playerGrid = document.querySelector(".playerBoard");
 const computerGrid = document.querySelector(".computerBoard");
 const boards = document.querySelector(".boards");
 const resetBoard = document.querySelector(".reset");
-const player = new Player("player");
-const computer = new Player("computer");
+const player = new Player("Player");
+const computer = new Player("Computer");
 const winText = document.createElement("p");
 
 const playerBoard = player.board;
@@ -23,12 +23,12 @@ resetBoard.addEventListener("click", () => {
   computerBoard.randomBoard();
   clearTargets();
   buildGrid(playerGrid, playerBoard, true);
-  buildGrid(computerGrid, computerBoard, true);
+  buildGrid(computerGrid, computerBoard, false);
   winText.textContent = "";
 });
 
 buildGrid(playerGrid, playerBoard, true);
-buildGrid(computerGrid, computerBoard, true);
+buildGrid(computerGrid, computerBoard, false);
 
 computerGrid.addEventListener("click", (event) => {
   const square = event.target;
@@ -46,9 +46,11 @@ computerGrid.addEventListener("click", (event) => {
 
 function winCondition(player, playerBoard) {
   if (playerBoard.hasAllShipsSunk()) {
-    winText.textContent = `${player.player} won`;
+    winText.textContent = `${player.player} Won!`;
+    winText.classList.add("win");
     boards.appendChild(winText);
   }
 }
 
+boards.appendChild(winText);
 export { playerBoard };
