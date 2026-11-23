@@ -22,6 +22,15 @@ class Gameboard {
     return coordinates.join(",");
   }
 
+  isAdjacentShip(square) {
+    for (let deltaRow = -1; deltaRow <= 1; deltaRow++) {
+      for (let deltaCol = -1; deltaCol <= 1; deltaCol++) {
+        const neighbor = [square[0] + deltaRow, square[1] + deltaCol];
+        if (this.coords.has(this.coordsHelper(neighbor))) return true;
+      }
+    }
+    return false;
+  }
   deployShip(coordinates, length) {
     const squares = [];
 
@@ -30,10 +39,8 @@ class Gameboard {
     }
 
     for (const square of squares) {
-      if (this.coords.has(this.coordsHelper(square)) || !guardRails(square))
-        return false; //space is taken/ false instead of throwing an error to use the value for later *hopefully*
+      if (this.isAdjacentShip(square) || !guardRails(square)) return false;
     }
-
     const ship = new Ship(length);
     for (const square of squares) {
       this.coords.set(this.coordsHelper(square), ship);
