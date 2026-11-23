@@ -43,15 +43,14 @@ class Gameboard {
 
   receiveAttack(coordinates) {
     //reminder to block repeated attacks on the same square
-    const key = this.coordsHelper(coordinates);
-    const ship = this.coords.get(key);
+    const ship = this.coords.get(coordinates);
     if (ship) {
       ship.hit();
       ship.isSunk();
-      this.shotHit.add(key);
+      this.shotHit.add(coordinates);
       return true;
     } else {
-      this.missedShots.add(key);
+      this.missedShots.add(coordinates);
       return false;
     }
   }

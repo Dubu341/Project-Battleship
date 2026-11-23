@@ -1,6 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 .boards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 250px 250px;
+  gap: 200px;
 }
 .playerBoard,
 .computerBoard {
@@ -8,7 +13,6 @@
   grid-template-columns: repeat(10, 25px);
 }
 .square {
-  box-sizing: border-box;
   height: 25px;
   border: 1px solid rgb(148, 139, 196);
 }

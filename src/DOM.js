@@ -1,6 +1,7 @@
 import { gridSize } from "./gameboard.js";
 
 function buildGrid(container, board, revealShips) {
+  container.textContent = "";
   for (let i = 0; i < gridSize; i++) {
     //row
     for (let j = 0; j < gridSize; j++) {
@@ -18,6 +19,7 @@ function buildGrid(container, board, revealShips) {
       }
 
       if (board.shotHit.has(square.dataset.coords)) {
+        square.classList.remove("ship");
         square.classList.add("hit");
       }
       container.append(square);
