@@ -62,6 +62,20 @@ class Gameboard {
     }
     return true;
   }
+
+  randomBoard() {
+    const shipSizes = [4, 4, 3, 3, 2, 2, 1, 1];
+    shipSizes.forEach((size) => {
+      let placed = false;
+      while (!placed) {
+        const coordinates = [
+          Math.floor(Math.random() * gridSize),
+          Math.floor(Math.random() * gridSize),
+        ];
+        placed = this.deployShip(coordinates, size);
+      }
+    });
+  }
 }
 
 export { Gameboard, gridSize };
