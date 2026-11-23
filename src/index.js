@@ -7,7 +7,9 @@ import { computerAttack, clearTargets } from "./computer-attack.js";
 const playerGrid = document.querySelector(".playerBoard");
 const computerGrid = document.querySelector(".computerBoard");
 const boards = document.querySelector(".boards");
+const randomBoard = document.querySelector(".random");
 const resetBoard = document.querySelector(".reset");
+
 const player = new Player("Player");
 const computer = new Player("Computer");
 const winText = document.createElement("p");
@@ -18,8 +20,17 @@ const computerBoard = computer.board;
 playerBoard.randomBoard();
 computerBoard.randomBoard();
 
-resetBoard.addEventListener("click", () => {
+randomBoard.addEventListener("click", () => {
   playerBoard.randomBoard();
+  computerBoard.randomBoard();
+  clearTargets();
+  buildGrid(playerGrid, playerBoard, true);
+  buildGrid(computerGrid, computerBoard, false);
+  winText.textContent = "";
+});
+
+resetBoard.addEventListener("click", () => {
+  playerBoard.reset();
   computerBoard.randomBoard();
   clearTargets();
   buildGrid(playerGrid, playerBoard, true);
@@ -38,7 +49,7 @@ computerGrid.addEventListener("click", (event) => {
 
   if (computerBoard.receiveAttack(coords) === false) return;
 
-  buildGrid(computerGrid, computerBoard, true);
+  buildGrid(computerGrid, computerBoard, false);
   winCondition(player, computerBoard);
   computerAttack(); //!!!!
   winCondition(computer, playerBoard);

@@ -76,6 +76,15 @@ class Gameboard {
   }
 
   reset() {
+    this.missedShots = new Set();
+    this.shotHit = new Set();
+    const ships = this.coords.values();
+    for (const ship of ships) {
+      ship.sunk = false;
+      ship.timesHit = 0;
+    }
+  }
+  randomReset() {
     this.coords = new Map();
     this.missedShots = new Set();
     this.shotHit = new Set();
@@ -85,7 +94,7 @@ class Gameboard {
     const maxAttempts = 1000;
     let allPlaced = false;
     while (!allPlaced) {
-      this.reset();
+      this.randomReset();
       allPlaced = true;
       for (const size of shipSizes) {
         let placed = false;
