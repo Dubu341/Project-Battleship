@@ -1,22 +1,51 @@
 import Ship from "./ship.js";
 
+const gridSize = 11;
+
+function guardRails(position) {
+  return (
+    Array.isArray(position) &&
+    position.length === 2 &&
+    Number.isInteger(position[0]) &&
+    Number.isInteger(position[1]) &&
+    position[0] >= 0 &&
+    position[0] < gridSize &&
+    position[1] >= 0 &&
+    position[1] < gridSize
+  );
+}
+
 class Gameboard {
   constructor() {
     this.coords = new Map();
     this.missedShots = new Set();
   }
 
-  coordsHelper(cordinates) {
-    return cordinates.join(",");
+  coordsHelper(coordinates) {
+    return coordinates.join(",");
   }
 
-  deployShip(cordinates, length) {
+  deployShip(coordinates, length) {
+    const squares = [];
+
+    for (let i = 0; i < length; i++) {
+      squares.push([coordinates[0], coordinates[1] + i]);
+    }
+
+    for (const square of squares) {
+      if (this.coords.has(this.coordsHelper(square)) || !guardRails(square))
+        return false; //space is taken/ false instead of throwing an error to use the value for later *hopefully*
+    }
+
     const ship = new Ship(length);
-    this.coords.set(this.coordsHelper(cordinates), ship);
+    for (const square of squares) {
+      this.coords.set(this.coordsHelper(square), ship);
+    }
+    return true;
   }
 
-  recieveAttack(cordinates) {
-    const key = this.coordsHelper(cordinates);
+  recieveAttack(coordinates) {
+    const key = this.coordsHelper(coordinates);
     const ship = this.coords.get(key);
     if (ship) {
       ship.hit();
@@ -27,6 +56,7 @@ class Gameboard {
       return false;
     }
   }
+
   hasAllShipsSunk() {
     const ships = this.coords.values();
     for (const ship of ships) {
