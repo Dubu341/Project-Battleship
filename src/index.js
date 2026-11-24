@@ -12,7 +12,10 @@ const resetBoard = document.querySelector(".reset");
 
 const player = new Player("Player");
 const computer = new Player("Computer");
+const controls = document.querySelector(".controls");
 const winText = document.createElement("p");
+winText.classList.add("win");
+controls.after(winText);
 
 const playerBoard = player.board;
 const computerBoard = computer.board;
@@ -47,25 +50,28 @@ computerGrid.addEventListener("click", (event) => {
   const square = event.target;
   const coords = square.dataset.coords;
 
+  if (!coords) return;
+
   if (playerBoard.hasAllShipsSunk() || computerBoard.hasAllShipsSunk()) return;
 
   if (computerBoard.receiveAttack(coords) === false) return;
 
   buildGrid(computerGrid, computerBoard, false);
-  winCondition(player, computerBoard);
+  if (winCondition(player, computerBoard)) return;
+
   computerAttack(); //!!!!
   winCondition(computer, playerBoard);
 });
 
-function winCondition(player, playerBoard) {
-  if (playerBoard.hasAllShipsSunk()) {
-    winText.textContent = `${player.player} Won!`;
+function winCondition(winner, loserBoard) {
+  if (loserBoard.hasAllShipsSunk()) {
+    winText.textContent = `${winner.player} Won!`;
     winText.classList.add("win");
-    boards.appendChild(winText);
     buildGrid(computerGrid, computerBoard, true);
     computerGrid.classList.add("game-over");
+    return true;
   }
+  return false;
 }
 
-boards.appendChild(winText);
 export { playerBoard };
